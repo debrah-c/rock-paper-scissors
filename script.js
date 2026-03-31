@@ -17,34 +17,52 @@ function getHumanChoice() {
 console.log(getHumanChoice());
 
 
+//initializa the score to zero
+let humanScore = 0;
+let computerScore = 0;
 
-function playGame(){
-    //Initialize the score to 0
-var humanScore = 0;
-var computerScore = 0;
+//reference to the 'html button'(THE DOM ELEMENTS)
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById ('paper');
+const scissorsBtn = document.getElementById ('scissors');
+const resultsDiv = document.getElementById ('results');
+const scoreDiv = document.getElementById ('score');
 
-function playRound( humanChoice, computerChoice) {
-    if (humanChoice === computerChoice){
-    return "It is a tie!"
+function playRound( playerSelection, computerSelection) {
+    if (playerSelection === computerSelection){
+    resultsDiv.textContent =`Its a tie!`
     } else if (
-        humanChoice == "Rock" && computerChoice == "Scissors"||
-        humanChoice == "Paper" && computerChoice == "Rock" ||
-        humanChoice == "Scissors" && computerChoice == "Paper"
-        ){ 
-            humanScore =+ 1; //human wins 
-            return "You Win!"+humanChoice +" beats "+computerChoice+""
-           } else {
-                computerScore =+ 1;
-            return "You lose!"+computerChoice+" beats "+humanChoice+""
-           }
-
-}
-//Play 5 rounds
-for (let i = 1; i >=5; i++)
-        human= getHumanChoice();      // Ask user
-        computer = getComputerChoice(); // Random computer choice
-        console.log("Round " + i + ": " + playRound(human, computer));
-        console.log("Score -> You: " + humanScore + " Computer: " + computerScore);
-
+        playerSelection== "Rock" && computerSelection == "Scissors"||
+        playerSelection == "Paper" && computerSelection == "Rock" ||
+        playerSelection == "Scissors" && computerSelection == "Paper"
+        ) {
+        humanScore ++;
+        resultsDiv.textContent = `You win!`
+        } 
+        else {
+            computerScore++;
+            resultsDiv.textContent =`Computer wins!`
+            
+        }
     
-}    
+    }
+
+//update score display
+scoreDiv.textContent =`You: {humanScore} | computerScore: {computerScore}`
+//Checking the winner
+function checkWinner () {
+    if (humanScore === 5 ){
+        return "You win!"
+    }
+    if (computerScore === 5) {
+        return "Computer wins!"
+    }
+}
+
+//adding an event listener
+rockBtn.addEventListener('click', () => playRound ('rock'));
+paperBtn.addEventListener('click', () =>playRound ('paper'));
+scissorsBtn.addEventListener('click', () =>playRound ('scissors'));
+    
+   
+ 
