@@ -1,21 +1,10 @@
 function getComputerChoice () {
-    choices = ["rock","paper","scissors"];
+   const choices = ["rock","paper","scissors"];
     // pick a random index 0,1 or 2
-    randomIndex = Math.floor(Math.random() *choices.length);
+    const randomIndex = Math.floor(Math.random() *choices.length);
     return choices[randomIndex];
 
 }
-console.log (getComputerChoice());
-console.log (getComputerChoice());
-console.log (getComputerChoice());
-
-function getHumanChoice() {
-    // Ask the user for their choice.
-    let choices = prompt("Enter rock, paper or scissors");
-    return choices;
-}
-console.log(getHumanChoice());
-
 
 //initializa the score to zero
 let humanScore = 0;
@@ -28,13 +17,15 @@ const scissorsBtn = document.getElementById ('scissors');
 const resultsDiv = document.getElementById ('results');
 const scoreDiv = document.getElementById ('score');
 
-function playRound( playerSelection, computerSelection) {
+function playRound( playerSelection) {
+    const computerSelection = getComputerChoice();
+
     if (playerSelection === computerSelection){
     resultsDiv.textContent =`Its a tie!`
     } else if (
-        playerSelection== "Rock" && computerSelection == "Scissors"||
-        playerSelection == "Paper" && computerSelection == "Rock" ||
-        playerSelection == "Scissors" && computerSelection == "Paper"
+        playerSelection== "rock" && computerSelection == "scissors"||
+        playerSelection == "paper" && computerSelection == "rock" ||
+        playerSelection == "scissors" && computerSelection == "paper"
         ) {
         humanScore ++;
         resultsDiv.textContent = `You win!`
@@ -44,11 +35,13 @@ function playRound( playerSelection, computerSelection) {
             resultsDiv.textContent =`Computer wins!`
             
         }
-    
-    }
 
-//update score display
-scoreDiv.textContent =`You: {humanScore} | computerScore: {computerScore}`
+//Update score after each round.
+scoreDiv.textContent =`You: ${humanScore} | computerScore: ${computerScore}`;
+
+checkWinner ();
+}
+
 //Checking the winner
 function checkWinner () {
     if (humanScore === 5 ){
